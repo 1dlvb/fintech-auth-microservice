@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: 'postgres:latest'
+    container_name: "auth_postgres"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - '5434:5432'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=auth_db
+    restart: always
+
+volumes:
+  db_data:
