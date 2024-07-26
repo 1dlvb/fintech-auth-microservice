@@ -1,4 +1,4 @@
-package com.fintech.auth.model;
+package com.fintech.auth.util;
 
 public enum Roles {
 
