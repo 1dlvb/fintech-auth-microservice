@@ -2,7 +2,6 @@ package com.fintech.auth.util;
 
 import com.fintech.auth.model.AuthUser;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwsHeader;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
