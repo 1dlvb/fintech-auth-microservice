@@ -16,6 +16,7 @@
     <properties>
         <java.version>17</java.version>
         <testcontainers.version>1.19.8</testcontainers.version>
+        <jjwt.version>0.12.6</jjwt.version>
     </properties>
     <repositories>
         <repository>
@@ -124,6 +125,27 @@
             <groupId>com.onedlvb</groupId>
             <artifactId>audit-lib-spring-boot-autoconfigure</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>${jjwt.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>${jjwt.version}</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
