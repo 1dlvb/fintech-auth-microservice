@@ -1,1 +1,78 @@
 databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: matushkin
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: role
+      changes:
+        - createTable:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 2
+      author: matushkin
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: auth_user
+      changes:
+        - createTable:
+            tableName: auth_user
+            columns:
+              - column:
+                  name: username
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: auth_user
+            baseColumnNames: role
+            constraintName: fk_auth_user_role
+            referencedTableName: role
+            referencedColumnNames: id
