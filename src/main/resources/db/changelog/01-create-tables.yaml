@@ -60,19 +60,47 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: role
-                  type: VARCHAR(255)
-                  constraints:
-                    nullable: false
-              - column:
                   name: is_active
                   type: BOOLEAN
                   defaultValueBoolean: true
                   constraints:
                     nullable: false
+
+  - changeSet:
+      id: 3
+      author: matushkin
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: auth_user_roles
+      changes:
+        - createTable:
+            tableName: auth_user_roles
+            columns:
+              - column:
+                  name: auth_user_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            columnNames: auth_user_id,role_id
+            constraintName: pk_auth_user_roles
+            tableName: auth_user_roles
         - addForeignKeyConstraint:
-            baseTableName: auth_user
-            baseColumnNames: role
-            constraintName: fk_auth_user_role
+            baseTableName: auth_user_roles
+            baseColumnNames: auth_user_id
+            constraintName: fk_auth_user_roles_user
+            referencedTableName: auth_user
+            referencedColumnNames: username
+        - addForeignKeyConstraint:
+            baseTableName: auth_user_roles
+            baseColumnNames: role_id
+            constraintName: fk_auth_user_roles_role
             referencedTableName: role
             referencedColumnNames: id
