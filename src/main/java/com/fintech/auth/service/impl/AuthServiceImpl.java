@@ -5,10 +5,12 @@ import com.fintech.auth.dto.RefreshDTO;
 import com.fintech.auth.dto.UserSignInDTO;
 import com.fintech.auth.dto.UserSignUpDTO;
 import com.fintech.auth.model.AuthUser;
+import com.fintech.auth.model.Role;
 import com.fintech.auth.repository.AuthUserRepository;
 import com.fintech.auth.repository.RoleRepository;
 import com.fintech.auth.service.AuthService;
 import com.fintech.auth.util.JWTUtil;
+import com.fintech.auth.util.Roles;
 import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -51,7 +54,15 @@ public class AuthServiceImpl implements AuthService  {
             user.setUsername(userDTO.getUsername());
             user.setEmail(userDTO.getEmail());
             user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-            user.setRole(roleRepository.findById(userDTO.getRoleId()).orElseThrow());
+
+            Set<Role> roles = Set.of(roleRepository.findById(Roles.USER.name()).orElse(
+                    new Role("USER",
+                            "Может просматривать справочную информацию" +
+                                    " (contractor/county/all, deal/deal-status и т.д.)",
+                            true)));
+
+            user.setRoles(roles);
+
             authUserRepository.save(user);
 
             responseAuthDTO.setMessage("User saved successfully.");
