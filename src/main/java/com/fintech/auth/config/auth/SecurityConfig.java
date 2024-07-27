@@ -36,8 +36,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request ->
                         request.requestMatchers("/auth/signin",
                                         "/auth/signup",
-                                        "/auth/refresh-token").permitAll()
-                                .requestMatchers("auth/admin/**").hasAuthority(Roles.ADMIN.name())
+                                        "/auth/refresh-token",
+                                        "/user-roles/**").permitAll()
+                                .requestMatchers("roles/**").hasAuthority(Roles.ADMIN.name())
                                 .anyRequest().authenticated())
                 .sessionManagement(manager ->
                         manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
