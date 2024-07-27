@@ -65,7 +65,22 @@ databaseChangeLog:
                   defaultValueBoolean: true
                   constraints:
                     nullable: false
-
+              - column:
+                  name: create_date
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: modify_date
+                  type: TIMESTAMP
+              - column:
+                  name: create_user_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: modify_user_id
+                  type: VARCHAR(255)
   - changeSet:
       id: 3
       author: matushkin

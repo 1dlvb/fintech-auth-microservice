@@ -2,6 +2,7 @@ package com.fintech.auth.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -12,10 +13,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,6 +34,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "auth_user")
+@EntityListeners(AuditingEntityListener.class)
 public class AuthUser implements UserDetails {
 
     @Id
@@ -49,6 +57,22 @@ public class AuthUser implements UserDetails {
 
     @Column(name = "is_active", nullable = false)
     private Boolean isActive = true;
+
+    @CreatedDate
+    @Column(name = "create_date", nullable = false, updatable = false)
+    private LocalDateTime createDate;
+
+    @LastModifiedDate
+    @Column(name = "modify_date")
+    private LocalDateTime modifyDate;
+
+    @CreatedBy
+    @Column(name = "create_user_id", nullable = false, updatable = false)
+    private String createUserId;
+
+    @LastModifiedBy
+    @Column(name = "modify_user_id")
+    private String modifyUserId;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
