@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonPropertyOrder({"username", "email", "password", "role"})
+@JsonPropertyOrder({"username", "email", "password"})
 public class UserSignUpDTO {
 
     @JsonProperty("username")
@@ -22,8 +22,5 @@ public class UserSignUpDTO {
 
     @JsonProperty("password")
     private String password;
-
-    @JsonProperty("role")
-    private String roleId;
 
 }
