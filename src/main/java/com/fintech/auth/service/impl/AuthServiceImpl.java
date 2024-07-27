@@ -11,6 +11,8 @@ import com.fintech.auth.repository.RoleRepository;
 import com.fintech.auth.service.AuthService;
 import com.fintech.auth.util.JWTUtil;
 import com.fintech.auth.util.Roles;
+import com.onedlvb.advice.LogLevel;
+import com.onedlvb.advice.annotation.AuditLog;
 import jakarta.transaction.Transactional;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -47,6 +49,7 @@ public class AuthServiceImpl implements AuthService  {
 
     @Override
     @Transactional
+    @AuditLog(logLevel = LogLevel.INFO)
     public AuthDTO signup(UserSignUpDTO userDTO) {
         AuthDTO responseAuthDTO = new AuthDTO();
         try {
@@ -76,6 +79,7 @@ public class AuthServiceImpl implements AuthService  {
 
     @Override
     @Transactional
+    @AuditLog(logLevel = LogLevel.INFO)
     public AuthDTO signIn(UserSignInDTO requestAuthDTO) {
         AuthDTO responseAuthDTO = new AuthDTO();
         try {
@@ -92,6 +96,7 @@ public class AuthServiceImpl implements AuthService  {
 
     @Override
     @Transactional
+    @AuditLog(logLevel = LogLevel.INFO)
     public AuthDTO refreshToken(RefreshDTO refreshTokenRequest) {
         AuthDTO responseAuthDTO = new AuthDTO();
         String username = jwtUtil.getUsernameFromToken(refreshTokenRequest.getRefreshToken());

@@ -7,6 +7,8 @@ import com.fintech.auth.model.Role;
 import com.fintech.auth.repository.AuthUserRepository;
 import com.fintech.auth.repository.RoleRepository;
 import com.fintech.auth.service.RoleService;
+import com.onedlvb.advice.LogLevel;
+import com.onedlvb.advice.annotation.AuditLog;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,7 @@ public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
 
     @Override
+    @AuditLog(logLevel = LogLevel.INFO)
     public UserWithRolesDTO saveRoleToUser(SaveRoleToUserDTO saveRoleToUserDTO) {
         AuthUser user = userRepository.findByUsername(saveRoleToUserDTO.getUsername()).orElseThrow();
 
@@ -41,6 +44,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @AuditLog(logLevel = LogLevel.INFO)
     public UserWithRolesDTO getUserWithRolesByUsername(String login) {
         AuthUser user = userRepository.findByUsername(login).orElseThrow();
         return UserWithRolesDTO.builder()

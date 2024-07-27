@@ -3,6 +3,8 @@ package com.fintech.auth.controller;
 import com.fintech.auth.dto.SaveRoleToUserDTO;
 import com.fintech.auth.dto.UserWithRolesDTO;
 import com.fintech.auth.service.RoleService;
+import com.onedlvb.advice.LogLevel;
+import com.onedlvb.advice.annotation.AuditLogHttp;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,6 +21,7 @@ public class RolesAuthController {
     private final RoleService roleService;
 
     @PutMapping("/save")
+    @AuditLogHttp(logLevel = LogLevel.INFO)
     public UserWithRolesDTO saveRoleToUser(@RequestBody SaveRoleToUserDTO saveRoleToUserRequest) {
         return roleService.saveRoleToUser(saveRoleToUserRequest);
     }

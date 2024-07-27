@@ -2,6 +2,8 @@ package com.fintech.auth.controller;
 
 import com.fintech.auth.dto.UserWithRolesDTO;
 import com.fintech.auth.service.RoleService;
+import com.onedlvb.advice.LogLevel;
+import com.onedlvb.advice.annotation.AuditLogHttp;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ public class UserRolesController {
     private final RoleService roleService;
 
     @GetMapping("/{login}")
+    @AuditLogHttp(logLevel = LogLevel.INFO)
     public UserWithRolesDTO getRolesByLogin(@PathVariable String login) {
         return roleService.getUserWithRolesByUsername(login);
     }
