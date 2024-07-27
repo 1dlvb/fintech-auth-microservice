@@ -1,6 +1,7 @@
 package com.fintech.auth.util;
 
 import com.fintech.auth.model.AuthUser;
+import com.fintech.auth.model.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +15,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Component
 public class JWTUtil {
@@ -40,9 +43,12 @@ public class JWTUtil {
     }
 
     public String generateAccessToken(AuthUser userDetails) {
+        Set<String> roles = userDetails.getRoles().stream()
+                .map(Role::getId)
+                .collect(Collectors.toSet());
         return Jwts.builder()
                 .subject(userDetails.getUsername())
-                .claim("role", userDetails.getRole().getId())
+                .claim("roles", roles)
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(key)
@@ -50,9 +56,12 @@ public class JWTUtil {
     }
 
     public String generateRefreshToken(HashMap<String, Object> claims, AuthUser userDetails) {
+        Set<String> roles = userDetails.getRoles().stream()
+                .map(Role::getId)
+                .collect(Collectors.toSet());
         return Jwts.builder()
                 .claims(claims)
-                .claim("role", userDetails.getRole().getId())
+                .claim("roles", roles)
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expirationTime + refreshExpirationTime))
