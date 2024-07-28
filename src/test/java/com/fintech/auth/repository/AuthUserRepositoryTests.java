@@ -38,8 +38,6 @@ class AuthUserRepositoryTests {
         registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
     }
 
-
-
     @Autowired
     private AuthUserRepository authUserRepository;
 
