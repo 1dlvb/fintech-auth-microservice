@@ -68,7 +68,7 @@ class JWTUtilTests {
     void testGetUsernameFromTokenReturnsUsernameExtractedFromToken() {
         String token = jwtUtil.generateAccessToken(userDetails);
         String username = jwtUtil.getUsernameFromToken(token);
-        assertEquals(username, userDetails.getUsername());
+        assertEquals(userDetails.getUsername(), username);
     }
 
     @Test
