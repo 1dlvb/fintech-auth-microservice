@@ -61,7 +61,6 @@ class RoleServiceImplTests {
 
         assertThat(userWithRolesDTO).isNotNull();
         assertThat(userWithRolesDTO.getUsername()).isEqualTo("test");
-        assertThat(userWithRolesDTO.getRoleIds().contains("TEST ROLE"));
 
         verify(userRepository, times(1)).findByUsername("test");
         verify(roleRepository, times(1)).findById("TEST ROLE");
@@ -117,7 +116,6 @@ class RoleServiceImplTests {
 
         assertThat(userWithRolesDTO).isNotNull();
         assertThat(userWithRolesDTO.getUsername()).isEqualTo("test");
-        assertThat(userWithRolesDTO.getRoleIds().contains("TEST ROLE"));
 
         verify(userRepository, times(1)).findByUsername("test");
     }
