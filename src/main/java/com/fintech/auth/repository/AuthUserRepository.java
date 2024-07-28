@@ -6,6 +6,10 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * A repository for auth
+ * @author Matushkin Anton
+ */
 @Repository
 public interface AuthUserRepository extends JpaRepository<AuthUser, String> {
 

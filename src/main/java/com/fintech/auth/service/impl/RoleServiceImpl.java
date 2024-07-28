@@ -16,6 +16,10 @@ import org.springframework.stereotype.Service;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Implementation of the {@link RoleService} interface.
+ * @author Matushkin Anton
+ */
 @Service
 @RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {

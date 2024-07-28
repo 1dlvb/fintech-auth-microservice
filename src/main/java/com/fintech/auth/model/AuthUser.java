@@ -28,6 +28,10 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Entity representing an authenticated user.
+ * @author Matushkin Anton
+ */
 @Data
 @Entity
 @Builder

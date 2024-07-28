@@ -9,6 +9,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entity representing a Role.
+ * @author Matushkin Anton
+ */
 @Data
 @Entity
 @Builder

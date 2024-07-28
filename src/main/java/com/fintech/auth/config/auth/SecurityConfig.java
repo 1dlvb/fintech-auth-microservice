@@ -19,6 +19,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Class that configures the security settings for the application.
+ * @author Matushkin Anton
+ */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -30,6 +34,13 @@ public class SecurityConfig {
     @NonNull
     private final JWTAuthFilter jwtAuthFilter;
 
+    /**
+     * Configures the security filter chain.
+     * <p>
+     * @param httpSecurity the HTTP security configuration
+     * @return the configured SecurityFilterChain
+     * @throws Exception if an error occurs during configuration
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
@@ -48,6 +59,10 @@ public class SecurityConfig {
         return httpSecurity.build();
     }
 
+    /**
+     * Configures the authentication provider.
+     * @return the configured AuthenticationProvider
+     */
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -56,11 +71,22 @@ public class SecurityConfig {
         return daoAuthenticationProvider;
     }
 
+    /**
+     * Configures the password encoder.
+     * @return the PasswordEncoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Configures the authentication manager.
+     * <p>
+     * @param authenticationConfiguration the authentication configuration
+     * @return the configured AuthenticationManager
+     * @throws Exception if an error occurs during configuration
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();

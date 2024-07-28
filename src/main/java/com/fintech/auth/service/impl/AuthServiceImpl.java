@@ -25,6 +25,10 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Set;
 
+/**
+ * An implementation of {@link AuthService} interface.
+ * @author Matushkin Anton
+ */
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService  {
@@ -110,6 +114,12 @@ public class AuthServiceImpl implements AuthService  {
 
     }
 
+    /**
+     * Fills the provided {@link AuthDTO} with the authentication details of the specified user.
+     * @param responseAuthDTO The {@link AuthDTO} to be filled with the user's authentication details.
+     * @param user            The authenticated user.
+     * @param message         The message to be set in the {@link AuthDTO}.
+     */
     private void fillAuthDTO(AuthDTO responseAuthDTO, AuthUser user, String message) {
         String accessToken = jwtUtil.generateAccessToken(user);
         String refreshToken = jwtUtil.generateRefreshToken(new HashMap<>(), user);
