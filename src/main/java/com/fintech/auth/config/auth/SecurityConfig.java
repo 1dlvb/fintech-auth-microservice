@@ -48,7 +48,9 @@ public class SecurityConfig {
                         request.requestMatchers("/auth/signin",
                                         "/auth/signup",
                                         "/auth/refresh-token",
-                                        "/user-roles/**").permitAll()
+                                        "/user-roles/**",
+                                        "/swagger-ui/**",
+                                        "/v3/**").permitAll()
                                 .requestMatchers("roles/**").hasAuthority(Roles.ADMIN.name())
                                 .anyRequest().authenticated())
                 .sessionManagement(manager ->
