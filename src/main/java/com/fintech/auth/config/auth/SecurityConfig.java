@@ -48,10 +48,10 @@ public class SecurityConfig {
                         request.requestMatchers("/auth/signin",
                                         "/auth/signup",
                                         "/auth/refresh-token",
-                                        "/user-roles/**",
                                         "/swagger-ui/**",
                                         "/v3/**").permitAll()
-                                .requestMatchers("roles/**").hasAuthority(Roles.ADMIN.name())
+                                .requestMatchers("/user-roles").authenticated()
+                                .requestMatchers("roles/**", "/user-roles/**").hasAuthority(Roles.ADMIN.name())
                                 .anyRequest().authenticated())
                 .sessionManagement(manager ->
                         manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
