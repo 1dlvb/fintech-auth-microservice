@@ -12,6 +12,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -78,5 +84,31 @@ class UserRolesControllerTests {
                 .andExpect(jsonPath("$.roles[0]").value("TEST ROLE"));
     }
 
+    @Test
+    public void test123() throws Exception {
+        setupSecurityContext();
+        UserWithRolesDTO userWithRolesDTO = new UserWithRolesDTO();
+        userWithRolesDTO.setUsername("testUser");
+        userWithRolesDTO.setRoleIds(Set.of("USER"));
+
+        when(roleService.getUserWithRolesByUsername("testUser")).thenReturn(userWithRolesDTO);
+
+        mockMvc.perform(get("/user-roles")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.username").value("testUser"))
+                .andExpect(jsonPath("$.roles[0]").value("USER"));
+    }
+
+    private void setupSecurityContext() {
+        UserDetails user = User.withUsername("testUser")
+                .password("password")
+                .authorities(new SimpleGrantedAuthority("USER"))
+                .build();
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        context.setAuthentication(new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities()));
+        SecurityContextHolder.setContext(context);
+    }
 
 }
