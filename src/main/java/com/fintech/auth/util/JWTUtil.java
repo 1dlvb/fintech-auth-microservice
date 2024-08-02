@@ -14,7 +14,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -70,7 +70,7 @@ public class JWTUtil {
      * @param userDetails The user details.
      * @return The generated refresh token.
      */
-    public String generateRefreshToken(HashMap<String, Object> claims, AuthUser userDetails) {
+    public String generateRefreshToken(Map<String, Object> claims, AuthUser userDetails) {
         Set<String> roles = userDetails.getRoles().stream()
                 .map(Role::getId)
                 .collect(Collectors.toSet());
