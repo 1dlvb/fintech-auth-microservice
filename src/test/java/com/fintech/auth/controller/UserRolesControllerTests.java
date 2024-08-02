@@ -64,7 +64,7 @@ class UserRolesControllerTests {
     private ObjectMapper objectMapper;
 
     @Test
-    public void testGetUserByUsernameReturnsUserWithItsRolesByUsername() throws Exception {
+    void testGetUserByUsernameReturnsUserWithItsRolesByUsername() throws Exception {
         SaveRoleToUserDTO saveRoleToUserDTO = new SaveRoleToUserDTO();
         saveRoleToUserDTO.setUsername("test");
         saveRoleToUserDTO.setRoleIds(Set.of("TEST ROLE"));
@@ -85,7 +85,7 @@ class UserRolesControllerTests {
     }
 
     @Test
-    public void test123() throws Exception {
+    void testGetUserReturnsUserWithItsRoles() throws Exception {
         setupSecurityContext();
         UserWithRolesDTO userWithRolesDTO = new UserWithRolesDTO();
         userWithRolesDTO.setUsername("testUser");

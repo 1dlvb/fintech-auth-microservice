@@ -57,7 +57,7 @@ class RolesAuthControllerTests {
     private ObjectMapper objectMapper;
 
     @Test
-    public void testSaveRoleToUserSavesRolesToUser() throws Exception {
+    void testSaveRoleToUserSavesRolesToUser() throws Exception {
         SaveRoleToUserDTO saveRoleToUserDTO = new SaveRoleToUserDTO();
         saveRoleToUserDTO.setUsername("test");
         saveRoleToUserDTO.setRoleIds(Set.of("TEST ROLE"));

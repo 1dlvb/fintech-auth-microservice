@@ -78,7 +78,7 @@ class AuthControllerTests {
 
 
     @Test
-    public void testSignInReturnsProperResponse() throws Exception {
+    void testSignInReturnsProperResponse() throws Exception {
         UserSignInDTO signInDTO = new UserSignInDTO();
         signInDTO.setUsername("test");
         signInDTO.setPassword("test password");
@@ -106,7 +106,7 @@ class AuthControllerTests {
     }
 
     @Test
-    public void testRefreshTokenReturnsNewToken() throws Exception {
+    void testRefreshTokenReturnsNewToken() throws Exception {
         RefreshDTO refreshTokenRequest = new RefreshDTO();
         refreshTokenRequest.setRefreshToken("refresh token");
         AuthDTO authDTO = new AuthDTO();
