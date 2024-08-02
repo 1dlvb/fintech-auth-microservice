@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user-roles")
-@Tag(name = "Roles Controller", description = "API for getting info about user roles")
+@Tag(name = "RolesEnum Controller", description = "API for getting info about user roles")
 public class UserRolesController {
 
     @NonNull

@@ -1,6 +1,6 @@
 package com.fintech.auth.config.auth;
 
-import com.fintech.auth.util.Roles;
+import com.fintech.auth.util.RolesEnum;
 import com.fintech.auth.service.impl.AuthUserDetailsServiceImpl;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +51,7 @@ public class SecurityConfig {
                                         "/swagger-ui/**",
                                         "/v3/**").permitAll()
                                 .requestMatchers("/user-roles").authenticated()
-                                .requestMatchers("roles/**", "/user-roles/**").hasAuthority(Roles.ADMIN.name())
+                                .requestMatchers("roles/**", "/user-roles/**").hasAuthority(RolesEnum.ADMIN.name())
                                 .anyRequest().authenticated())
                 .sessionManagement(manager ->
                         manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

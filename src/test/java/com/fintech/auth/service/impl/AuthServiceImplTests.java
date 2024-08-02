@@ -9,7 +9,7 @@ import com.fintech.auth.model.Role;
 import com.fintech.auth.repository.AuthUserRepository;
 import com.fintech.auth.repository.RoleRepository;
 import com.fintech.auth.util.JWTUtil;
-import com.fintech.auth.util.Roles;
+import com.fintech.auth.util.RolesEnum;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -69,7 +69,7 @@ class AuthServiceImplTests {
         userDTO.setPassword("password");
 
         when(passwordEncoder.encode(anyString())).thenReturn("encodedPassword");
-        when(roleRepository.findById(Roles.USER.name())).thenReturn(Optional.of(
+        when(roleRepository.findById(RolesEnum.USER.name())).thenReturn(Optional.of(
                 new Role("USER", "description", true)));
         when(authUserRepository.save(any(AuthUser.class))).thenReturn(new AuthUser());
 

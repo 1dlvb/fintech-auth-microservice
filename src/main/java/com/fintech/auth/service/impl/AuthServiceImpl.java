@@ -10,7 +10,7 @@ import com.fintech.auth.repository.AuthUserRepository;
 import com.fintech.auth.repository.RoleRepository;
 import com.fintech.auth.service.AuthService;
 import com.fintech.auth.util.JWTUtil;
-import com.fintech.auth.util.Roles;
+import com.fintech.auth.util.RolesEnum;
 import com.onedlvb.advice.LogLevel;
 import com.onedlvb.advice.annotation.AuditLog;
 import jakarta.transaction.Transactional;
@@ -62,7 +62,7 @@ public class AuthServiceImpl implements AuthService  {
             user.setEmail(userDTO.getEmail());
             user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
-            Set<Role> roles = Set.of(roleRepository.findById(Roles.USER.name()).orElse(
+            Set<Role> roles = Set.of(roleRepository.findById(RolesEnum.USER.name()).orElse(
                     new Role("USER",
                             "Может просматривать справочную информацию" +
                                     " (contractor/county/all, deal/deal-status и т.д.)",
