@@ -1,1 +1,121 @@
 databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: matushkin
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: role
+      changes:
+        - createTable:
+            tableName: role
+            columns:
+              - column:
+                  name: id
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: description
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+
+  - changeSet:
+      id: 2
+      author: matushkin
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: auth_user
+      changes:
+        - createTable:
+            tableName: auth_user
+            columns:
+              - column:
+                  name: username
+                  type: VARCHAR(255)
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                    unique: true
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: is_active
+                  type: BOOLEAN
+                  defaultValueBoolean: true
+                  constraints:
+                    nullable: false
+              - column:
+                  name: create_date
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: modify_date
+                  type: TIMESTAMP
+              - column:
+                  name: create_user_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: modify_user_id
+                  type: VARCHAR(255)
+  - changeSet:
+      id: 3
+      author: matushkin
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            tableExists:
+              tableName: auth_user_roles
+      changes:
+        - createTable:
+            tableName: auth_user_roles
+            columns:
+              - column:
+                  name: auth_user_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+        - addPrimaryKey:
+            columnNames: auth_user_id,role_id
+            constraintName: pk_auth_user_roles
+            tableName: auth_user_roles
+        - addForeignKeyConstraint:
+            baseTableName: auth_user_roles
+            baseColumnNames: auth_user_id
+            constraintName: fk_auth_user_roles_user
+            referencedTableName: auth_user
+            referencedColumnNames: username
+        - addForeignKeyConstraint:
+            baseTableName: auth_user_roles
+            baseColumnNames: role_id
+            constraintName: fk_auth_user_roles_role
+            referencedTableName: role
+            referencedColumnNames: id

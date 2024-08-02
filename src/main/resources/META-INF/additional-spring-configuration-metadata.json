@@ -29,5 +29,10 @@
       "name": "deal.resend.failed.message.cron",
       "type": "java.lang.String",
       "description": "A cron expression for resending failed messages."
+    },
+    {
+      "name": "auth.secret.string",
+      "type": "java.lang.String",
+      "description": "Secret string for JWT generation."
     }
   ] }
